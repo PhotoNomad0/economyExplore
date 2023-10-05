@@ -12,7 +12,7 @@ df2 = pd.read_csv(file2)
 # Merge the DataFrames using the "Year" column as the common index
 merged_df = pd.merge(df1, df2, on="Year")
 
-deltaColumn = 'GdpDelta'
+deltaColumn = 'GDP Delta (%)'
 merged_df[deltaColumn] = 0.0
 
 gdpColumn = 'GDP (billions of current dollars)'
@@ -24,7 +24,7 @@ for i in range(num_rows):
         lastGdp = merged_df.at[i - 1, gdpColumn]
         if lastGdp != 0:
             delta = (currentGdp - lastGdp) / lastGdp
-            delta = round(delta, 4)
+            delta = round(delta * 100, 2)
 
     merged_df.at[i, deltaColumn] = delta
 
